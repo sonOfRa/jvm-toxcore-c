@@ -42,7 +42,7 @@ my @common = (
       '--enable-minimal',
       '--disable-pie',
    ],
-   ["https://github.com/irungentoo", "toxcore", "master", @common,
+   ["https://github.com/TokTok", "toxcore", "master", @common,
       '--disable-testing',
       '--disable-tests',
       only_on (qr/android/, '--disable-rt'),

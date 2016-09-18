@@ -3,8 +3,12 @@ sudo: false
 
 addons:
   apt:
-    sources: ['ubuntu-toolchain-r-test','llvm-toolchain-precise-3.5']
-    packages: ['clang-3.5', 'p7zip-full']
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.5
+    packages:
+      - clang-3.5
+      - p7zip-full
 
 android:
   components:
@@ -22,13 +26,11 @@ cache:
 
 env:
   matrix:
-    # Test builds first, since they don't upload things.
-    #- TEST_GOAL=coverage
+    - TEST_GOAL=coverage
     #- TEST_GOAL=performance
-    # Production builds after test builds so only tested artifacts are uploaded.
     #- TARGET=x86_64-linux
     #- TARGET=aarch64-linux-android
-    - TARGET=arm-linux-androideabi
+    #- TARGET=arm-linux-androideabi
     #- TARGET=i686-linux-android
     #- TARGET=x86_64-linux-android
 
@@ -43,7 +45,7 @@ install:
   - make setup
 
 script:
-  # Build/install/test/upload step.
+  # Build/install/test step.
   - mkdir -p /tmp/android-travis
   - make install
 
@@ -56,4 +58,3 @@ before_cache:
 branches:
   only:
     - master
-    - staging

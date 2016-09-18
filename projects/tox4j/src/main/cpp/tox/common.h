@@ -14,7 +14,7 @@ namespace tox
     template<typename Subsystem, typename ...Args>
     struct tox_cb
     {
-      template<void Set (Subsystem *, void (*)(Subsystem *, Args..., void *), void *)>
+      template<void Set (Subsystem *, void (*)(Subsystem *, Args..., void *))>
       struct func
       {
         template<typename UserData>
@@ -36,7 +36,7 @@ namespace tox
         set (Subsystem *tox, std::unique_ptr<UserData> user_data)
         {
           assert (user_data.get () != nullptr);
-          Set (tox, invoke<UserData, Callback>, user_data.get ());
+          Set (tox, invoke<UserData, Callback>);
           return user_data;
         }
       };
@@ -113,7 +113,7 @@ namespace tox
     { };
 
 
-    template<typename Subsystem, typename Sig, void Set (Subsystem *, Sig, void *)>
+    template<typename Subsystem, typename Sig, void Set (Subsystem *, Sig)>
     struct cb
       : mk_tox_cb<Subsystem, Sig>::template func<Set>
     { };
